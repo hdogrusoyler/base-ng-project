@@ -1,0 +1,33 @@
+<!-- *ngIf="isUserAuthenticated" -->
+<div class="example-container" >
+    <form [formGroup]="titleUpdateForm" #formDirective="ngForm" (ngSubmit)="onUpdateTitle(titleUpdateForm, formDirective)">
+      <div fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="10px">
+        <mat-form-field hidden>
+          <mat-label>Id</mat-label>
+          <input matInput formControlName="id">
+        </mat-form-field>
+        <mat-form-field hidden>
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="text">
+        </mat-form-field>      
+        <!-- <mat-form-field>
+          <mat-label>Category</mat-label>
+          <input matInput formControlName="categoryId">
+        </mat-form-field> -->
+        <mat-form-field appearance="fill" gdColumn="1 / span 2" gdRow="3">
+            <mat-label>Category</mat-label>
+            <mat-select [compareWith]="compareFn" formControlName="categoryId">
+              <mat-form-field appearance="outline" fxFlexFill>
+                <input matInput #filtercategory placeholder="Filter">
+              </mat-form-field>
+              <mat-option *ngFor="let category of categories | selectfilter : filtercategory.value; let i = index" [value]="category.id">{{category.text}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        <div fxFlexAlign="end" fxLayoutGap="10px">
+          <button type="button" mat-stroked-button *ngIf="title.id" (click)="onDeleteTitle()"> <mat-icon>close</mat-icon> Sil </button>
+          <button type="submit" mat-stroked-button [disabled]="titleUpdateForm.invalid" *ngIf="title.id"> <mat-icon>update</mat-icon> Güncelle </button>{{'   '}}
+          <button type="submit" mat-stroked-button [disabled]="titleUpdateForm.invalid" *ngIf="!title.id"> <mat-icon>add</mat-icon> Kaydet </button>
+        </div>
+      </div>
+    </form>
+  </div>

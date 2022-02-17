@@ -1,0 +1,20 @@
+<!-- *ngIf="isUserAuthenticated" -->
+<div class="example-container" >
+    <form [formGroup]="categoryUpdateForm" #formDirective="ngForm" (ngSubmit)="onUpdateCategory(categoryUpdateForm, formDirective)">
+      <div fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="10px">
+        <mat-form-field hidden>
+          <mat-label>Id</mat-label>
+          <input matInput formControlName="id">
+        </mat-form-field>
+        <mat-form-field hidden>
+          <mat-label>Category</mat-label>
+          <input matInput formControlName="text">
+        </mat-form-field>             
+        <div fxFlexAlign="end" fxLayoutGap="10px">
+          <button type="button" mat-stroked-button *ngIf="category.id" (click)="onDeleteCategory()"> <mat-icon>close</mat-icon> Sil </button>
+          <button type="submit" mat-stroked-button [disabled]="categoryUpdateForm.invalid" *ngIf="category.id"> <mat-icon>update</mat-icon> Güncelle </button>{{'   '}}
+          <button type="submit" mat-stroked-button [disabled]="categoryUpdateForm.invalid" *ngIf="!category.id"> <mat-icon>add</mat-icon> Kaydet </button>
+        </div>
+      </div>
+    </form>
+  </div>
